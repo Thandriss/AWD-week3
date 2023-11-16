@@ -64,11 +64,39 @@ router.delete("/user/:id",(req, res) => {
   let flag = false;
   console.log("del");
   for (let i = 0; i < list.length; i++) {
+    console.log(list);
     if (req.params.id == list[i].name) {
       flag = true;
-      list.slice(i,1);
+      list.splice(i,1);
+      console.log("Here");
+      console.log(list);
       let resultM = {
         message: "User deleted"
+      }; 
+      res.send(resultM);
+    }
+  }
+  if(flag === false) {
+    console.log(list);
+    let resultM = {
+      message: "User not found"
+    }; 
+    res.send(resultM);
+  }
+})
+
+router.put("/user",(req, res) => {
+  let flag = false;
+  console.log("put");
+  for (let i = 0; i < list.length; i++) {
+    console.log(list);
+    if (req.body.name == list[i].name) {
+      flag = true;
+      list[i].todos.splice(req.body.todos,1);
+      console.log("deleted task");
+      console.log(list);
+      let resultM = {
+        message: "Task deleted"
       }; 
       res.send(resultM);
     }
